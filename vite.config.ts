@@ -17,6 +17,22 @@ const basic = (): Plugin => ({
   },
 });
 
+const virtualModule = (): Plugin => {
+  const ID = "virtual:module";
+
+  return {
+    name: "virtual-module",
+
+    resolveId: (id) => {
+      if (id === ID) return ID;
+    },
+
+    load: (id) => {
+      if (id === ID) return "export const message = \"Hello virtual module!\"";
+    },
+  };
+};
+
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue(), basic()],
